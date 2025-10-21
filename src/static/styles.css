@@ -1,144 +1,151 @@
-* {
-  box-sizing: border-box;
+/* Estilos globales */
+:root{
+  --bg:#f7f8fb;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#0b5fff;
+  --danger:#dc2626;
+  --radius:8px;
+}
+
+html,body{height:100%}
+body{
+  margin:20px;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background:var(--bg);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+}
+
+/* Contenedor principal */
+#activities{
+  max-width:920px;
+  margin:0 auto;
+  padding:6px;
+}
+
+/* Mensajes */
+#message{
+  min-height:20px;
+  margin:8px 0 12px;
+  text-align:center;
+  font-weight:600;
+}
+
+/* Lista y tarjetas
+   app.js crea: #activities > div (list) > div (card)
+*/
+#activities > div {
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+#activities > div > div {
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:14px;
+  border:1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 1px 2px rgba(16,24,40,0.03);
+}
+
+/* Titulos y textos */
+#activities h3{
+  margin:0 0 6px;
+  font-size:1.15rem;
+  color:#0f172a;
+}
+
+#activities p{
+  margin:6px 0;
+  color:#374151;
+  font-size:0.96rem;
+}
+
+#activities p.meta{
+  color:var(--muted);
+  font-size:0.90rem;
+}
+
+/* Lista de inscritos (compacta) */
+#activities p.participants{
+  font-size:0.88rem;
+  color:#334155;
+  word-break:break-word;
+}
+
+/* Participant list (unstyled bullets) */
+#activities ul.participants-list{
+  list-style: none;
   margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+  padding: 0 0 0 0;
 }
 
-body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #333;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
+.participant-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
 }
 
-header {
-  text-align: center;
-  padding: 20px 0;
-  margin-bottom: 30px;
-  background-color: #1a237e;
-  color: white;
-  border-radius: 5px;
+.participant-delete{
+  background:transparent;
+  border:none;
+  color:var(--danger);
+  cursor:pointer;
+  font-size:0.95rem;
+  padding:4px;
+  border-radius:6px;
+}
+.participant-delete:hover{ background: rgba(220,38,38,0.08) }
+
+/* Formularios y controles */
+#activities form{
+  margin-top:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
 }
 
-header h1 {
-  margin-bottom: 10px;
+#activities input[type="email"]{
+  padding:8px 10px;
+  border-radius:6px;
+  border:1px solid rgba(15,23,42,0.08);
+  min-width:200px;
+  outline:none;
+  transition:box-shadow .12s, border-color .12s;
 }
 
-main {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  justify-content: center;
+#activities input[type="email"]:focus{
+  border-color: rgba(11,95,255,0.75);
+  box-shadow: 0 0 0 3px rgba(11,95,255,0.08);
 }
 
-@media (min-width: 768px) {
-  main {
-    grid-template-columns: 2fr 1fr;
-  }
+/* Botones */
+#activities button{
+  background:var(--accent);
+  color:white;
+  padding:8px 12px;
+  border-radius:6px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+  transition:transform .06s ease, opacity .12s;
 }
 
-section {
-  background-color: white;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 500px;
-}
+#activities button:hover{ transform:translateY(-1px) }
+#activities button:active{ transform:translateY(0) }
+#activities button[disabled]{ opacity:.6; cursor:default; transform:none }
 
-section h3 {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-  color: #1a237e;
-}
+/* Estado de error (puede usarse cambiando color en #message) */
+.error{ color:var(--danger) }
 
-.activity-card {
-  margin-bottom: 15px;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  background-color: #f9f9f9;
-}
-
-.activity-card h4 {
-  margin-bottom: 10px;
-  color: #0066cc;
-}
-
-.activity-card p {
-  margin-bottom: 8px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-}
-
-button {
-  background-color: #1a237e;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  font-size: 16px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-button:hover {
-  background-color: #3949ab;
-}
-
-.message {
-  margin-top: 20px;
-  padding: 10px;
-  border-radius: 4px;
-}
-
-.success {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border: 1px solid #a5d6a7;
-}
-
-.error {
-  background-color: #ffebee;
-  color: #c62828;
-  border: 1px solid #ef9a9a;
-}
-
-.info {
-  background-color: #d1ecf1;
-  color: #0c5460;
-  border: 1px solid #bee5eb;
-}
-
-.hidden {
-  display: none;
-}
-
-footer {
-  text-align: center;
-  margin-top: 30px;
-  padding: 20px;
-  color: #666;
+/* Responsive */
+@media (max-width:560px){
+  body{ margin:14px }
+  #activities input[type="email"]{ min-width:140px; flex:1 1 100%; }
+  #activities form{ gap:6px }
 }

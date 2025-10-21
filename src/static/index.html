@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mergington High School Activities</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Mergington High — Actividades</title>
+    <style>
+      /* Estilos mínimos */
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        margin: 20px;
+        color: #222;
+      }
+      header {
+        margin-bottom: 12px;
+      }
+      h1 {
+        margin: 0 0 6px 0;
+        font-size: 1.4rem;
+      }
+      p.lead {
+        margin: 0 0 12px 0;
+        color: #555;
+      }
+      #message {
+        min-height: 18px;
+      }
+    </style>
   </head>
   <body>
     <header>
-      <h1>Mergington High School</h1>
-      <h2>Extracurricular Activities</h2>
+      <h1>Mergington High — Actividades extracurriculares</h1>
+      <p class="lead">Explora las actividades y regístrate con tu correo escolar.</p>
     </header>
 
-    <main>
-      <section id="activities-container">
-        <h3>Available Activities</h3>
-        <div id="activities-list">
-          <!-- Activities will be loaded here -->
-          <p>Loading activities...</p>
-        </div>
-      </section>
+    <!-- Contenedor donde app.js renderiza la lista -->
+    <div id="activities"></div>
 
-      <section id="signup-container">
-        <h3>Sign Up for an Activity</h3>
-        <form id="signup-form">
-          <div class="form-group">
-            <label for="email">Student Email:</label>
-            <input type="email" id="email" required placeholder="your-email@mergington.edu" />
-          </div>
-          <div class="form-group">
-            <label for="activity">Select Activity:</label>
-            <select id="activity" required>
-              <option value="">-- Select an activity --</option>
-              <!-- Activity options will be loaded here -->
-            </select>
-          </div>
-          <button type="submit">Sign Up</button>
-        </form>
-        <div id="message" class="hidden"></div>
-      </section>
-    </main>
-
-    <footer>
-      <p>&copy; 2023 Mergington High School</p>
-    </footer>
-
-    <script src="app.js"></script>
+    <!-- Script cliente (servido por FastAPI en /static/app.js) -->
+    <script src="/static/app.js" defer></script>
   </body>
 </html>
