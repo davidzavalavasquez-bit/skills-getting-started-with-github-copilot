@@ -82,11 +82,51 @@ document.addEventListener("DOMContentLoaded", () => {
 				ul.style.color = "#374151";
 
 				a.participants.forEach((p) => {
-					const li = document.createElement("li");
-					li.textContent = p;
-					li.style.marginBottom = "4px";
-					li.style.listStyleType = "disc";
-					ul.appendChild(li);
+						const li = document.createElement("li");
+						li.style.marginBottom = "6px";
+						li.style.listStyleType = "none"; // hide default bullets; styled via CSS
+						li.style.display = "flex";
+						li.style.alignItems = "center";
+
+						const span = document.createElement("span");
+						span.textContent = p;
+						span.style.flex = "1";
+						li.appendChild(span);
+
+						// Delete icon/button
+						const delBtn = document.createElement("button");
+						delBtn.type = "button";
+						delBtn.title = "Eliminar participante";
+						delBtn.textContent = "✖";
+						delBtn.style.marginLeft = "8px";
+						delBtn.style.border = "none";
+						delBtn.style.background = "transparent";
+						delBtn.style.cursor = "pointer";
+						delBtn.style.color = "#ef4444"; // red tone
+						delBtn.style.fontSize = "0.95rem";
+
+						delBtn.addEventListener("click", async () => {
+							if (!confirm(`¿Eliminar ${p} de ${name}?`)) return;
+							try {
+								const resp = await fetch(`/activities/${encodeURIComponent(name)}/participants?email=${encodeURIComponent(p)}`, {
+									method: "DELETE"
+								});
+								const data = await resp.json().catch(() => ({}));
+								if (!resp.ok) {
+									const detail = data.detail || data.message || `Error ${resp.status}`;
+									showMessage(`Error: ${detail}`, true);
+								} else {
+									showMessage(data.message || "Participante eliminado");
+									await loadActivities();
+								}
+							} catch (err) {
+								showMessage("Fallo en la comunicaci\u00f3n con el servidor.", true);
+								console.error(err);
+							}
+						});
+
+						ul.appendChild(li);
+						li.appendChild(delBtn);
 				});
 				participantsWrap.appendChild(ul);
 			} else {

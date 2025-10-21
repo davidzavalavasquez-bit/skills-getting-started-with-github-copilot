@@ -76,6 +76,31 @@ body{
   word-break:break-word;
 }
 
+/* Participant list (unstyled bullets) */
+#activities ul.participants-list{
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 0;
+}
+
+.participant-item{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
+}
+
+.participant-delete{
+  background:transparent;
+  border:none;
+  color:var(--danger);
+  cursor:pointer;
+  font-size:0.95rem;
+  padding:4px;
+  border-radius:6px;
+}
+.participant-delete:hover{ background: rgba(220,38,38,0.08) }
+
 /* Formularios y controles */
 #activities form{
   margin-top:8px;
